@@ -630,6 +630,8 @@
                 navigator.geolocation.getCurrentPosition(
                     //Si el navegador entrega los datos de geolocalizacion los imprimimos
                     function (position) {
+                        console.log(position);
+                        
                         latitud = position.coords.latitude;
                         longitud = position.coords.longitude
                     },
