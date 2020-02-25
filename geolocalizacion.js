@@ -19,8 +19,6 @@
         );
     }
 
-    export {
-        latitud,
-        longitud
-    }
+    console.log(latitud);
+    console.log(longitud);
     
