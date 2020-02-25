@@ -14,7 +14,7 @@
                 },
                 //Si no los entrega manda un alerta de error
                 function () {
-                    console.log('Ubicación no se pudo determinar');
+                    console.log('Ubicación no se pudo determinar, pruebas');
     
                 }
             );
