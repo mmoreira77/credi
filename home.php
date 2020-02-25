@@ -30,7 +30,7 @@ include_once './template/head.php';
                     <p class="text-info"><b>Código: 020230042505</b> | <b>Nombre: JOSE ALEXANDER HENRIQUEZ</b></p>
                 </div>
 
-                <div id='map' style='width: 400px; height: 300px;'></div>
+                <!-- <div id='map' style='width: 400px; height: 300px;'></div> -->
 
             </div>
             <div class="row">
@@ -88,7 +88,7 @@ include_once './template/head.php';
 </div>
 <hr>
 <hr>
-
+<script src="https://mmoreira77.github.io/credi/geolocalizacion.js"></script>
 <script>
     $('#detalleCliente').hide();
 
@@ -103,42 +103,44 @@ include_once './template/head.php';
         $('#detalleCliente').hide();
     }, 70000);
 
-    let ubicacion = () => {
-        let latitud = 0;
-        let longitud = 0;
-
+    // let ubicacion = () => {
+    //     let latitud = 0;
+    //     let longitud = 0;
+    //     console.log(navigator.geolocation);
+        
         //Si el navegador soporta geolocalizacion
-        if (!!navigator.geolocation) {
-            //Pedimos los datos de geolocalizacion al navegador
-            navigator.geolocation.getCurrentPosition(
-                //Si el navegador entrega los datos de geolocalizacion los imprimimos
-                function(position) {
-                    latitud = position.coords.latitude;
-                    longitud = position.coords.longitude
-                },
-                //Si no los entrega manda un alerta de error
-                function() {
-                    console.log('Ubicación no se pudo determinar');
+        // if (!!navigator.geolocation) {
+        //     //Pedimos los datos de geolocalizacion al navegador
+        //     navigator.geolocation.getCurrentPosition(
+        //         //Si el navegador entrega los datos de geolocalizacion los imprimimos                               
+        //         function(position) {
+        //             console.log(position);
+        //             console.log('Latitud: ' + position.coords.latitude);
+        //             console.log('Longitud: ' + position.coords.longitude);
+        //             latitud = position.coords.latitude;
+        //             longitud = position.coords.longitude
+        //         },
+        //         //Si no los entrega manda un alerta de error
+        //         function() {
+        //             console.log('Ubicación no se pudo determinar');
 
-                }
-            );
-        }
-        $('#detalleCliente').html(latitud + '  ' + longitud);
-        $('#detalleCliente').show();
-        console.log('Latitud: ' + latitud + '  Longitud: ' + longitud);
+        //         }
+        //     );
+        // }        
+        // console.log('Latitud: ' + latitud + '  Longitud: ' + longitud);
 
-    }
+    // }
 
-    ubicacion();
+    // ubicacion();
 </script>
 
-<script>
+<!-- <script>
     mapboxgl.accessToken = 'pk.eyJ1IjoibW1vcmVpcmE3NyIsImEiOiJjazZ3bXc2cmYwMGNhM2RqdXhmMGI1bnhsIn0.GJjM6rd0aEaRrOSL8dzTiw';
     var map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v11'
     });
-</script>
+</script> -->
 
 <?php
 include_once './template/head.php';
