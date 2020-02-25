@@ -90,9 +90,6 @@ include_once './template/head.php';
 <hr>
 <!-- <script src="https://mmoreira77.github.io/credi/geolocalizacion.js"></script> -->
 <script>
-    import geo from 'https://mmoreira77.github.io/credi/geolocalizacion.js'; 
-
-    let dataGeo = geo.geo();
 
     $('#detalleCliente').hide();
 
