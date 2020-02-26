@@ -12,6 +12,7 @@ include_once './template/head.php';
     <h3>Consulta de créditos</h3>
     <br>
     <input type="text" name="txtCliente" id="txtCliente" placeholder="Código o nombre de cliente" class="form-control">
+    <div id="sugerencias"></div>
     <button id="btnConsultar" type="button" class="btn btn-primary btn-block"> Consultar</button>
     <div class="row">
 
@@ -90,58 +91,89 @@ include_once './template/head.php';
 <hr>
 <!-- <script src="https://mmoreira77.github.io/credi/geolocalizacion.js"></script> -->
 <script>
-
     $('#detalleCliente').hide();
 
     $('#btnConsultar').click(function() {
         let textEmpleado = $('#txtCliente').val();
         if (textEmpleado.length > 4) {
-            $('#detalleCliente').show(2000);
+            consulta(textEmpleado);
         }
     });
 
-    setTimeout(function() {
-        $('#detalleCliente').hide();
-    }, 70000);
+    let consulta = (codigo) => {
+        $.ajax({
+            method: 'POST',
+            url: './operaciones/ope.php',
+            data: {
+                ope: 0,
+                data: codigo
+            },
+            beforeSend: function() {
+                $('#detalleCliente').html('<br><span class="text-warning"><b> CARGANDO DATOS POR FAVOR ESPERE ...</b></span>');
+            }
+        }).done(function(data) {
+            $('#detalleCliente').show(2000);
+            $('#detalleCliente').html(data);
+        });
+    }
 
-    // let ubicacion = () => {
-    //     let latitud = 0;
-    //     let longitud = 0;
-    //     console.log(navigator.geolocation);
-        
-        //Si el navegador soporta geolocalizacion
-        // if (!!navigator.geolocation) {
-        //     //Pedimos los datos de geolocalizacion al navegador
-        //     navigator.geolocation.getCurrentPosition(
-        //         //Si el navegador entrega los datos de geolocalizacion los imprimimos                               
-        //         function(position) {
-        //             console.log(position);
-        //             console.log('Latitud: ' + position.coords.latitude);
-        //             console.log('Longitud: ' + position.coords.longitude);
-        //             latitud = position.coords.latitude;
-        //             longitud = position.coords.longitude
-        //         },
-        //         //Si no los entrega manda un alerta de error
-        //         function() {
-        //             console.log('Ubicación no se pudo determinar');
+    $('#txtCliente').keyup(function() {
+        let textEmpleado = $('#txtCliente').val();
+        if (textEmpleado.length > 2) {
+            if (+textEmpleado.substr(0, 1) >= 0 && textEmpleado.substr(0, 1) <= 9) {
+                buscarCodigo(textEmpleado);
+            } else {
+                buscarNombre(textEmpleado);
+            }
+        } else {
+            $('#sugerencias').html('');
+        }
+    });
 
-        //         }
-        //     );
-        // }        
-        // console.log('Latitud: ' + latitud + '  Longitud: ' + longitud);
+    let buscarCodigo = (cod) => {
+        $.ajax({
+            method: 'POST',
+            url: './operaciones/ope.php',
+            data: {
+                ope: 1,
+                cod
+            },
+            beforeSend: function() {
+                $('#sugerencias').html('<br><span class="text-primary"><b> CARGANDO DATOS POR FAVOR ESPERE ...</b></span>');
+            }
+        }).done(function(data) {
+            $('#sugerencias').html(data);
+        });
+    }
 
-    // }
+    let buscarNombre = (cod) => {
+        $.ajax({
+            method: 'POST',
+            url: './operaciones/ope.php',
+            data: {
+                ope: 2,
+                cod
+            },
+            beforeSend: function() {
+                $('#sugerencias').html('<br><span class="text-primary"><b> CARGANDO DATOS POR FAVOR ESPERE ...</b></span>');
+            }
+        }).done(function(data) {
+            $('#sugerencias').html(data);
+        });
+    }
 
-    // ubicacion();
+    $('#sugerencias').on('click', '.prestamo', function() {
+        let cod = $(this).attr('codigo');
+        $('#txtCliente').val(cod);
+        $('#sugerencias').html('');
+        if ($('#txtCliente').val().length === 11) {
+            $('#btnConsultar').trigger('click');
+        } else {
+            buscarCodigo($('#txtCliente').val());
+        }
+    });
 </script>
 
-<!-- <script>
-    mapboxgl.accessToken = 'pk.eyJ1IjoibW1vcmVpcmE3NyIsImEiOiJjazZ3bXc2cmYwMGNhM2RqdXhmMGI1bnhsIn0.GJjM6rd0aEaRrOSL8dzTiw';
-    var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11'
-    });
-</script> -->
 
 <?php
 include_once './template/head.php';
