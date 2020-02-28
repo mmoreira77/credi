@@ -5,6 +5,7 @@ include_once 'sesiones.php';
 
 class Credimaster extends Conexion
 {
+
     public function login($user = null, $pass = null)
     {
         $sql = "SELECT CODIGO, usuario, TIPO, perfil, usuario FROM usuarios WHERE ucorrugado = :user AND pcorrugado = :pass AND TIPO = 1";
@@ -27,6 +28,16 @@ class Credimaster extends Conexion
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function agenciaNombreGet($cod = null)
+    {
+        $sql = "SELECT CODIGO, NOMBRE FROM agencia WHERE CODIGO = :cod";
+        $conx = $this->conexion();
+        $stm = $conx->prepare($sql);
+        $stm->bindParam(':cod', $cod);
+        $stm->execute();
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////                     UTILIDADES    ////////////////////////////////////////////////////////////
     public function cript($pass = null)
@@ -41,7 +52,6 @@ class Credimaster extends Conexion
             header("Location: http://201.247.105.75/components/com_dat/");
         };
     }
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////              FIN     UTILIDADES    ////////////////////////////////////////////////////////////
 }

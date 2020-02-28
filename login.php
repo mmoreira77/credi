@@ -8,7 +8,7 @@ if (isset($_REQUEST['user']) && isset($_REQUEST['pass'])) {
 
     $login = $objMaster->login($_REQUEST['user'], $_REQUEST['pass']);
     if (count($login) > 0) {
-        $objSession->init($_REQUEST['user'], $login[0]['usuario']);
+        $objSession->init($_REQUEST['user'], $login[0]['usuario'], $login[0]['CODIGO']);
         header('Location: home.php');
     } else {
         header('Location: index.html');

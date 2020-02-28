@@ -1,6 +1,27 @@
 <?php
 class HelperAgencia
 {
+    public function userAgenciaConsulta($data = null)
+    {
+        $select = '';
+        if ($data == 0) {
+            $select = '
+            <div class="form-group">
+            <label for="exampleFormControlSelect1">Selecione agencia a la pertece</label>
+            <select class="form-control" id="selectAgencia">
+                <option value="default"> ---</option>
+                <option value="01"> Santa Ana</option>
+                <option value="02"> Chalchuapa</option>
+                <option value="03"> Ahuachapan</option>
+                <option value="04"> Sonsonate</option>
+                <option value="07"> Chaltenago</option>
+                <option value="08"> Lourdes Colón</option>
+            </select>
+            </div>
+            ';
+        }
+        return $select;
+    }
     public function sortClienteNombre($data = null)
     {
         $li = null;
